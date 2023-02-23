@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:pockdex/features/pages/splash_page/splash_page.dart';
+import 'package:pockdex/core/routes/app_router.dart';
 
-import 'core/services/http_client/bloc/service_locator.dart';
+import 'core/bloc/service_locator.dart';
 
 Future<void> initializeServices() async {
   //initialize service injection
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SplashPage(),
+      onGenerateRoute: AppRouter.generateRoute,
     );
   }
 }
