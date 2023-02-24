@@ -1,4 +1,3 @@
-
 abstract class IHttpService {
   Future<HttpResponse> get(String url);
 }

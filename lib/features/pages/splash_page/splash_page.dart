@@ -23,7 +23,7 @@ class _SplashPageState extends State<SplashPage>
       duration: const Duration(milliseconds: 800),
     );
 
-    splashCubit.init();
+    splashCubit.init(context: context);
 
     super.initState();
   }
@@ -33,7 +33,7 @@ class _SplashPageState extends State<SplashPage>
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF77dd77),
+      backgroundColor: const Color(0xFFff6961),
       body: BlocBuilder<SplashCubit, SplashState>(
         bloc: splashCubit,
         builder: (context, state) {
