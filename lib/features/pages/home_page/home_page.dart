@@ -30,6 +30,20 @@ class _HomePageState extends State<HomePage> {
               Container(
                 height: 100,
                 color: const Color(0XFFf6b26b),
+                child: SafeArea(
+                    child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.search),
+                      ),
+                      const SizedBox(width: 10),
+                      const Text("Procurar")
+                    ],
+                  ),
+                )),
               ),
               Flexible(
                 child: ListView(
@@ -39,45 +53,53 @@ class _HomePageState extends State<HomePage> {
                       future: homeCubit.getPokemons(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          return Padding(
+                          return GridView.builder(
+                            physics: const BouncingScrollPhysics(),
                             padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: GridView.builder(
-                              physics: const BouncingScrollPhysics(),
-                              cacheExtent: 100,
-                              shrinkWrap: true,
-                              itemCount: state.allPokemons.length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                crossAxisSpacing: 20,
-                                mainAxisSpacing: 20,
-                              ),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.black.withOpacity(0.4),
+                            cacheExtent: 100,
+                            shrinkWrap: true,
+                            itemCount: state.allPokemons.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 5,
+                              mainAxisSpacing: 20,
+                            ),
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  Container(
+                                    width: 140,
+                                    height: 140,
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                        255,
+                                        222,
+                                        222,
+                                        223,
+                                      ),
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.black.withOpacity(0.4),
                                           offset: const Offset(0, 0),
                                           blurRadius: 10,
                                         )
-                                      ]),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Center(
-                                      child: Image.network(
-                                        state.allPokemons[index].img!,
-                                      ),
+                                      ],
+                                    ),
+                                    child: Image.network(
+                                      state.allPokemons[index].img!,
                                     ),
                                   ),
-                                );
-                              },
-                            ),
+                                  const SizedBox(height: 10),
+                                  Text(state.allPokemons[index].name!),
+                                ],
+                              );
+                            },
                           );
                         } else {
                           return const Center(
-                              child: CircularProgressIndicator());
+                            child: CircularProgressIndicator(),
+                          );
                         }
                       },
                     ),
